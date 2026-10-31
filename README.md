@@ -1,6 +1,8 @@
 # Lola Monster Makeup
 
-Base de la aplicación en Next.js 16 con Neon Postgres y Managed Better Auth.
+Portafolio de Paola Palacio Romo (Lola Monster Makeup), construido con Next.js 16. Galería filtrable con fotografías, créditos y navegación por teclado, servicios, presentación y contacto por Instagram. Incluye Neon Postgres y Managed Better Auth.
+
+Las imágenes optimizadas se encuentran en `public/portfolio`; las fuentes y créditos se documentan en `public/portfolio/README.md`. El contacto público dirige al perfil oficial de Lola.
 
 ## Configuración local
 
