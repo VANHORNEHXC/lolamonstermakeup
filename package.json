@@ -6,10 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "biome lint src next.config.ts"
+    "lint": "biome lint src next.config.ts",
+    "db:setup": "node --env-file=.env scripts/setup-db.mjs",
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
-    "@neon/auth": "^0.8.2",
     "@neondatabase/serverless": "^1.2.0",
     "next": "16.4.3",
     "react": "19.3.0",
@@ -24,9 +25,5 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "overrides": {
-    "@neon/auth": {
-      "@better-auth/oauth-provider": "1.7.12"
-    }
-  }
+  "type": "module"
 }

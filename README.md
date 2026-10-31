@@ -1,23 +1,44 @@
 # Lola Monster Makeup
 
-Portafolio de Paola Palacio Romo (Lola Monster Makeup), construido con Next.js 16. Galería filtrable con fotografías, créditos y navegación por teclado, servicios, presentación y contacto por Instagram. Incluye Neon Postgres y Managed Better Auth.
+Portafolio de Paola Palacio Romo en Next.js 16, con solicitudes de servicio guardadas en Neon Postgres. El sitio es público y no tiene cuentas ni autenticación.
 
-Las imágenes optimizadas se encuentran en `public/portfolio`; las fuentes y créditos se documentan en `public/portfolio/README.md`. El contacto público dirige al perfil oficial de Lola.
+## Páginas
 
-## Configuración local
+- `/`: portada y selección de cuatro fotografías.
+- `/portafolio`: galería completa con filtros, ampliación, créditos y navegación por teclado.
+- `/servicios`: editorial, social glam, novias, peinado y clases.
+- `/sobre-lola`: presentación de Paola.
+- `/booking`: solicitud de disponibilidad y cotización.
+
+Las imágenes y sus fuentes están documentadas en `public/portfolio/README.md`.
+
+## Configuración
 
 1. Ejecuta `npm ci`.
-2. Crea un archivo `.env` en la raíz del proyecto con las variables de `.env.example`.
-3. Genera `NEON_AUTH_COOKIE_SECRET` con `openssl rand -base64 32` y configura `localhost:3000` como origen permitido en Neon Auth.
+2. Crea `.env` con las variables de `.env.example`.
+3. Ejecuta `npm run db:setup` para crear la tabla e índices de solicitudes. La migración es idempotente y no modifica otras tablas.
 4. Ejecuta `npm run dev` y abre `http://localhost:3000`.
 
-El archivo `.env` está ignorado por Git. Configura las mismas variables en el entorno de despliegue.
+Configura `DATABASE_URL_POOLED` o `DATABASE_URL` en el despliegue. La conexión se utiliza únicamente en el servidor; el archivo `.env` está ignorado por Git. Las antiguas variables `NEON_AUTH_*` ya no se utilizan y no son necesarias.
 
-## Comprobaciones
+## Solicitudes
+
+`POST /api/bookings` valida los campos, exige consentimiento de contacto y guarda una solicitud en `booking_requests`. Aplica un límite de tres solicitudes por correo por hora, una trampa antispam y un límite de 16 KB por petición. Una transacción serializa el límite por correo. El identificador de petición evita duplicados al reintentar un envío.
+
+Las solicitudes se consultan en Neon Console, por ejemplo:
+
+```sql
+SELECT id, created_at, name, email, phone, service, requested_date,
+       location, people, message, status
+FROM booking_requests
+ORDER BY created_at DESC;
+```
+
+No existe una ruta pública para leer solicitudes ni se envían correos automáticamente. La confirmación en pantalla indica recepción de la solicitud, no una reserva confirmada. Los estados disponibles son `new`, `contacted`, `confirmed` y `closed`.
+
+## Validación
 
 - `npm run lint`: reglas de código.
+- `npm test`: validación de solicitudes, fechas y campos.
 - `npm run build`: compilación de producción.
-- `GET /api/health`: ejecuta `SELECT 1` en Neon Postgres y devuelve `{"database":"ok"}` cuando conecta.
-- `/auth/sign-up`, `/auth/sign-in` y `/account`: flujo básico de Neon Auth. La página de cuenta requiere sesión.
-
-La URL de conexión a Postgres solo se utiliza en el servidor. `DATABASE_URL_POOLED` tiene preferencia si está definida; en caso contrario se usa `DATABASE_URL`.
+- `GET /api/health`: ejecuta `SELECT 1` y devuelve `{"database":"ok"}` cuando conecta.

@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useRef, useState } from "react";
 
 const works = [
 	{
@@ -87,20 +89,24 @@ const filters = ["Todo", "Editorial", "Beauty", "Peinado"];
 
 export function SiteHeader() {
 	const [open, setOpen] = useState(false);
-	useEffect(() => {
-		const closeMenu = () => setOpen(false);
-		window.addEventListener("hashchange", closeMenu);
-		return () => window.removeEventListener("hashchange", closeMenu);
-	}, []);
+	const pathname = usePathname();
+	const navigation = [
+		{ href: "/", label: "Inicio" },
+		{ href: "/portafolio", label: "Portafolio" },
+		{ href: "/servicios", label: "Servicios" },
+		{ href: "/sobre-lola", label: "Sobre Lola" },
+		{ href: "/booking", label: "Booking" },
+	];
 	return (
 		<header className="site-header">
-			<a
+			<Link
 				className="wordmark"
-				href="#inicio"
+				href="/"
 				aria-label="Lola Monster Makeup, inicio"
+				onNavigate={() => setOpen(false)}
 			>
 				lola<span>MONSTER MAKEUP</span>
-			</a>
+			</Link>
 			<button
 				type="button"
 				className="menu-toggle"
@@ -115,25 +121,31 @@ export function SiteHeader() {
 				aria-label="Navegación principal"
 				className={open ? "navigation is-open" : "navigation"}
 			>
-				<a href="/#portafolio">Portafolio</a>
-				<a href="/#servicios">Servicios</a>
-				<a href="/#sobre-lola">Sobre Lola</a>
-				<a className="nav-contact" href="/#contacto">
-					Hablemos <span aria-hidden="true">↗</span>
-				</a>
+				{navigation.map((item) => (
+					<Link
+						key={item.href}
+						href={item.href}
+						className={item.href === "/booking" ? "nav-contact" : undefined}
+						aria-current={pathname === item.href ? "page" : undefined}
+						onNavigate={() => setOpen(false)}
+					>
+						{item.label}
+						{item.href === "/booking" && <span aria-hidden="true">↗</span>}
+					</Link>
+				))}
 			</nav>
 		</header>
 	);
 }
 
-export function Gallery() {
+export function Gallery({ preview = false }: { preview?: boolean }) {
 	const [filter, setFilter] = useState("Todo");
 	const [active, setActive] = useState(0);
 	const dialog = useRef<HTMLDialogElement>(null);
 	const selected = works[active];
-	const visible = works.filter(
-		(work) => filter === "Todo" || work.tags.includes(filter),
-	);
+	const visible = preview
+		? works.slice(0, 4)
+		: works.filter((work) => filter === "Todo" || work.tags.includes(filter));
 	function showWork(index: number) {
 		setActive(index);
 		dialog.current?.showModal();
@@ -145,23 +157,25 @@ export function Gallery() {
 	}
 	return (
 		<>
-			<div className="gallery-toolbar">
-				<fieldset className="gallery-filters" aria-label="Filtrar portafolio">
-					{filters.map((item) => (
-						<button
-							type="button"
-							key={item}
-							aria-pressed={item === filter}
-							onClick={() => setFilter(item)}
-						>
-							{item}
-						</button>
-					))}
-				</fieldset>
-				<span className="gallery-count" aria-live="polite">
-					{String(visible.length).padStart(2, "0")} trabajos
-				</span>
-			</div>
+			{!preview && (
+				<div className="gallery-toolbar">
+					<fieldset className="gallery-filters" aria-label="Filtrar portafolio">
+						{filters.map((item) => (
+							<button
+								type="button"
+								key={item}
+								aria-pressed={item === filter}
+								onClick={() => setFilter(item)}
+							>
+								{item}
+							</button>
+						))}
+					</fieldset>
+					<span className="gallery-count" aria-live="polite">
+						{String(visible.length).padStart(2, "0")} trabajos
+					</span>
+				</div>
+			)}
 			<div className="gallery-grid">
 				{visible.map((work) => (
 					<button
