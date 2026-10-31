@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { authClient } from "@/lib/auth/client";
 
 export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
@@ -75,7 +75,7 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
         </label>
         {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
         {notice && <p role="status" className="text-sm text-green-700">{notice}</p>}
-        <button disabled={pending} className="rounded-lg bg-zinc-950 px-4 py-3 font-medium text-white disabled:opacity-50">
+        <button type="submit" disabled={pending} className="rounded-lg bg-zinc-950 px-4 py-3 font-medium text-white disabled:opacity-50">
           {pending ? "Procesando…" : signingUp ? "Crear cuenta" : "Entrar"}
         </button>
       </form>

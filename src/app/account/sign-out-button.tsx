@@ -8,6 +8,7 @@ export function SignOutButton() {
 
   return (
     <button
+      type="button"
       className="mt-6 rounded-lg border border-zinc-300 px-4 py-2 font-medium"
       onClick={async () => {
         await authClient.signOut();
