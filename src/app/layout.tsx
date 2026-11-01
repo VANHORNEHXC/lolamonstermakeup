@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import Link from "next/link";
 import { SiteHeader } from "./portfolio";
 import "./globals.css";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
+const silkFlower = localFont({
+	src: "../../public/silk-flower-font/silk-flower.otf",
+	variable: "--font-silk-flower",
+	display: "swap",
 });
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
+const playfair = localFont({
+	src: "../../public/Metamorphous,Playfair_Display/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf",
+	variable: "--font-playfair",
+	display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 	return (
 		<html
 			lang="es"
-			className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+			className={`${silkFlower.variable} ${playfair.variable} h-full antialiased`}
 		>
 			<body className="min-h-full flex flex-col">
 				<div className="lola-site">

@@ -1,16 +1,35 @@
 @import "tailwindcss";
 
+/* ─── Pastel Palette from color card ─── */
 :root {
-	--background: #f6f3ed;
-	--foreground: #2c2423;
-	--wine: #500d20;
-	--line: #d5cdc4;
+	/* Earth-tone pastels */
+	--soil: #503a3a;
+	--evergreen: #45694e;
+	--ivory: #fdf6d9;
+	--oat: #ebe4de;
+	--plum: #b89191;
+	--olive: #eadfe7;
+	--thistle: #91a0b8;
+	--sage: #91b89e;
+	--cantelope: #ffb885;
+	--daisy: #ecd768;
+
+	/* Semantic variables mapped to pastels */
+	--background: #fdf8f0;
+	--foreground: #503a3a;
+	--wine: #b89191;
+	--line: #e8ddd2;
+
+	/* Typography */
+	--font-title: var(--font-silk-flower), Georgia, serif;
+	--font-body: var(--font-playfair), Georgia, serif;
+	--serif: var(--font-body);
 }
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
+	--font-sans: var(--font-playfair);
+	--font-mono: var(--font-playfair);
 }
 html {
 	scroll-behavior: smooth;
@@ -19,14 +38,14 @@ html {
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: var(--font-geist-sans), Arial, sans-serif;
+	font-family: var(--font-body);
 }
 ::selection {
-	background: #500d20;
-	color: #f6f3ed;
+	background: var(--sage);
+	color: var(--soil);
 }
 .lola-site {
-	--serif: Georgia, "Times New Roman", serif;
+	--serif: var(--font-body);
 }
 .lola-site a,
 .lola-site button,
@@ -38,7 +57,7 @@ body {
 	cursor: pointer;
 }
 .lola-site :focus-visible {
-	outline: 2px solid #a34b68;
+	outline: 2px solid var(--sage);
 	outline-offset: 6px;
 }
 .skip-link {
@@ -46,8 +65,8 @@ body {
 	top: -100px;
 	left: 20px;
 	z-index: 100;
-	background: var(--wine);
-	color: white;
+	background: var(--evergreen);
+	color: var(--ivory);
 	padding: 16px;
 }
 .skip-link:focus {
@@ -65,17 +84,17 @@ body {
 	display: inline-flex;
 	flex-direction: column;
 	align-items: center;
-	color: var(--wine);
-	font-family: var(--serif);
-	font-style: italic;
+	color: var(--soil);
+	font-family: var(--font-title);
+	font-style: normal;
 	font-size: 57px;
 	line-height: 0.8;
-	letter-spacing: -5px;
+	letter-spacing: -2px;
 	text-decoration: none;
 }
 .wordmark span {
 	margin-top: 11px;
-	font-family: var(--font-geist-sans), sans-serif;
+	font-family: var(--font-body);
 	font-style: normal;
 	font-size: 8px;
 	letter-spacing: 2px;
@@ -86,20 +105,21 @@ body {
 	gap: 38px;
 	align-items: center;
 	font-size: 12px;
+	font-family: var(--font-body);
 }
 .navigation a {
 	padding: 12px 0;
 }
 .navigation a:hover {
-	color: var(--wine);
+	color: var(--evergreen);
 	text-decoration: underline;
 	text-underline-offset: 6px;
 }
 .navigation .nav-contact {
-	border: 1px solid var(--wine);
+	border: 1px solid var(--evergreen);
 	padding: 12px 22px;
 	margin-left: 20px;
-	color: var(--wine);
+	color: var(--evergreen);
 }
 .nav-contact span {
 	margin-left: 24px;
@@ -126,16 +146,18 @@ body {
 	letter-spacing: 1.8px;
 	line-height: 1.8;
 	font-weight: 500;
+	font-family: var(--font-body);
+	color: var(--thistle);
 }
 .hero-copy > :where(.eyebrow) span {
 	padding: 0 8px;
 }
 .hero h1 {
-	font-family: var(--serif);
+	font-family: var(--font-title);
 	font-size: clamp(65px, 7.5vw, 124px);
 	line-height: 1.02;
-	letter-spacing: -5px;
-	color: var(--wine);
+	letter-spacing: -3px;
+	color: var(--soil);
 	margin: 44px 0 25px;
 	font-weight: 400;
 }
@@ -145,7 +167,8 @@ body {
 .hero-description {
 	font-size: 14px;
 	line-height: 1.9;
-	color: #685d58;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .text-link {
 	display: inline-flex;
@@ -155,10 +178,11 @@ body {
 	border-bottom: 1px solid currentColor;
 	padding: 10px 0;
 	font-size: 12px;
-	color: var(--wine);
+	color: var(--evergreen);
+	font-family: var(--font-body);
 }
 .text-link:hover {
-	color: #a34b68;
+	color: var(--sage);
 }
 .hero-copy > .text-link {
 	margin-top: 20px;
@@ -183,7 +207,7 @@ body {
 }
 .location {
 	font-size: 10px;
-	color: #756962;
+	color: var(--plum);
 	margin-top: 20px;
 }
 .hero-figure {
@@ -192,7 +216,7 @@ body {
 .hero-image {
 	position: relative;
 	aspect-ratio: 0.77;
-	background: #a87850;
+	background: var(--oat);
 }
 .hero-image img {
 	object-fit: cover;
@@ -204,6 +228,7 @@ body {
 	font-size: 8px;
 	letter-spacing: 1.2px;
 	margin-top: 14px;
+	font-family: var(--font-body);
 }
 .manifesto {
 	display: flex;
@@ -214,9 +239,10 @@ body {
 	border-block: 1px solid var(--line);
 	font-size: 11px;
 	letter-spacing: 0.5px;
+	font-family: var(--font-body);
 }
 .spark {
-	color: var(--wine);
+	color: var(--cantelope);
 	font-size: 24px;
 }
 .section-shell {
@@ -235,12 +261,12 @@ body {
 	margin-bottom: 42px;
 }
 .lola-site h2 {
-	font-family: var(--serif);
+	font-family: var(--font-title);
 	font-size: clamp(38px, 4.4vw, 72px);
 	line-height: 1.12;
 	letter-spacing: -2px;
 	font-weight: 400;
-	color: var(--wine);
+	color: var(--soil);
 }
 .section-heading h2 {
 	margin-top: 20px;
@@ -248,8 +274,9 @@ body {
 .section-heading > p {
 	font-size: 12px;
 	line-height: 1.9;
-	color: #756962;
+	color: var(--plum);
 	padding-bottom: 5px;
+	font-family: var(--font-body);
 }
 .gallery-toolbar {
 	display: flex;
@@ -265,17 +292,18 @@ body {
 }
 .gallery-filters button {
 	font-size: 11px;
-	color: #756962;
+	color: var(--plum);
 	padding: 5px 0;
+	font-family: var(--font-body);
 }
 .gallery-filters button[aria-pressed="true"] {
-	color: var(--wine);
+	color: var(--evergreen);
 	text-decoration: underline;
 	text-underline-offset: 8px;
 }
 .gallery-count {
 	font-size: 9px;
-	color: #756962;
+	color: var(--plum);
 	letter-spacing: 1px;
 }
 .gallery-grid {
@@ -292,7 +320,7 @@ body {
 	position: relative;
 	aspect-ratio: 0.72;
 	overflow: hidden;
-	background: #ded7ce;
+	background: var(--oat);
 }
 .work-image img {
 	object-fit: cover;
@@ -311,7 +339,7 @@ body {
 	display: grid;
 	place-items: center;
 	border-radius: 50%;
-	color: var(--wine);
+	color: var(--evergreen);
 	opacity: 0;
 	transition: opacity 200ms;
 }
@@ -327,13 +355,14 @@ body {
 	margin-top: 13px;
 }
 .work-caption h3 {
-	font-family: var(--serif);
+	font-family: var(--font-title);
 	font-size: 19px;
 	font-weight: 400;
 }
 .work-caption > span {
 	font-size: 8px;
-	color: #756962;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .portfolio-end {
 	margin-top: 44px;
@@ -343,10 +372,11 @@ body {
 }
 .portfolio-end p {
 	font-size: 12px;
-	color: #756962;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .services-section {
-	background: #eee8e0;
+	background: var(--oat);
 	padding-block: 85px;
 }
 .services-layout {
@@ -361,16 +391,17 @@ body {
 	font-size: 13px;
 	line-height: 1.9;
 	max-width: 300px;
-	color: #756962;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .services-intro .text-link {
 	margin-top: 25px;
 }
 .service {
-	border-bottom: 1px solid #c5b9ad;
+	border-bottom: 1px solid #d5c9bd;
 }
 .service:first-child {
-	border-top: 1px solid #c5b9ad;
+	border-top: 1px solid #d5c9bd;
 }
 .service summary {
 	display: flex;
@@ -384,10 +415,11 @@ body {
 }
 .service-number {
 	font-size: 9px;
-	color: #756962;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .service h3 {
-	font-family: var(--serif);
+	font-family: var(--font-title);
 	font-size: 31px;
 	font-weight: 400;
 }
@@ -395,7 +427,7 @@ body {
 	margin-left: auto;
 	font-weight: 300;
 	font-size: 25px;
-	color: var(--wine);
+	color: var(--cantelope);
 	transition: transform 200ms;
 }
 .service[open] .service-plus {
@@ -405,7 +437,8 @@ body {
 	padding: 0 24px 25px 38px;
 	font-size: 13px;
 	line-height: 1.9;
-	color: #685d58;
+	color: var(--soil);
+	font-family: var(--font-body);
 }
 .service-content .eyebrow {
 	margin-bottom: 12px;
@@ -413,7 +446,7 @@ body {
 }
 .service-content a {
 	display: inline-block;
-	color: var(--wine);
+	color: var(--evergreen);
 	margin-top: 14px;
 	text-decoration: underline;
 	text-underline-offset: 4px;
@@ -431,7 +464,7 @@ body {
 .about-image {
 	position: relative;
 	aspect-ratio: 0.89;
-	background: #e5d7c7;
+	background: var(--oat);
 }
 .about-image img {
 	object-fit: cover;
@@ -440,7 +473,8 @@ body {
 	font-size: 8px;
 	letter-spacing: 1px;
 	margin-top: 15px;
-	color: #756962;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .about-copy h2 {
 	margin: 24px 0;
@@ -448,12 +482,13 @@ body {
 .about-copy > p:not(.eyebrow) {
 	font-size: 13px;
 	line-height: 1.95;
-	color: #756962;
+	color: var(--plum);
 	margin-bottom: 18px;
 	max-width: 390px;
+	font-family: var(--font-body);
 }
 .about-copy > p.about-lead {
-	font-family: var(--serif);
+	font-family: var(--font-title);
 	font-size: 23px;
 	color: var(--foreground);
 	line-height: 1.45;
@@ -467,28 +502,29 @@ body {
 	margin-top: 28px;
 	font-size: 11px;
 	line-height: 1.9;
+	font-family: var(--font-body);
 }
 .ethos > span:first-child {
 	font-size: 42px;
-	color: var(--wine);
+	color: var(--cantelope);
 }
 .ethos strong {
 	font-weight: 500;
-	color: var(--wine);
+	color: var(--evergreen);
 }
 .contact-section {
-	background: var(--wine);
-	color: #f6f3ed;
+	background: var(--evergreen);
+	color: var(--ivory);
 	text-align: center;
 	padding: 80px 20px 65px;
 	position: relative;
 	overflow: hidden;
 }
 .contact-section .eyebrow {
-	color: #d4b9b9;
+	color: var(--sage);
 }
 .contact-section h2 {
-	color: #f6f3ed;
+	color: var(--ivory);
 	font-size: clamp(58px, 7vw, 112px);
 	margin: 28px 0 35px;
 	line-height: 1;
@@ -498,19 +534,20 @@ body {
 	display: inline-flex;
 	gap: 40px;
 	padding: 17px 25px;
-	background: var(--background);
-	color: var(--wine);
+	background: var(--ivory);
+	color: var(--evergreen);
 	font-size: 12px;
 	position: relative;
 	z-index: 1;
+	font-family: var(--font-body);
 }
 .contact-button:hover {
-	background: #e5d7c7;
+	background: var(--oat);
 }
 .contact-section > p:last-of-type {
 	font-size: 10px;
 	margin-top: 34px;
-	color: #d4b9b9;
+	color: var(--sage);
 }
 .contact-star {
 	position: absolute;
@@ -518,7 +555,7 @@ body {
 	top: 20%;
 	font-size: 95px;
 	font-weight: 200;
-	color: #a55c68;
+	color: var(--sage);
 	transform: rotate(15deg);
 }
 .site-footer {
@@ -535,18 +572,19 @@ body {
 	font-size: 6px;
 }
 .site-footer > p {
-	font-family: var(--serif);
-	font-style: italic;
+	font-family: var(--font-title);
+	font-style: normal;
 	font-size: 19px;
-	color: #756962;
+	color: var(--plum);
 }
 .site-footer > div {
 	display: flex;
 	gap: 25px;
 	font-size: 9px;
+	font-family: var(--font-body);
 }
 .site-footer > div > span {
-	color: #756962;
+	color: var(--plum);
 }
 .work-dialog {
 	border: 0;
@@ -563,7 +601,7 @@ body {
 	gap: 30px;
 }
 .work-dialog::backdrop {
-	background: #17070de6;
+	background: #2a1f1fe6;
 }
 html:has(.work-dialog[open]) {
 	overflow: hidden;
@@ -573,7 +611,8 @@ html:has(.work-dialog[open]) {
 	right: 28px;
 	top: 16px;
 	font-size: 12px;
-	color: var(--wine);
+	color: var(--evergreen);
+	font-family: var(--font-body);
 }
 .dialog-photo {
 	position: relative;
@@ -587,16 +626,17 @@ html:has(.work-dialog[open]) {
 	padding-right: 10px;
 }
 .dialog-info h3 {
-	font-family: var(--serif);
+	font-family: var(--font-title);
 	font-size: 38px;
-	color: var(--wine);
+	color: var(--soil);
 	line-height: 1.1;
 	margin: 20px 0;
 }
 .dialog-info > p:not(.eyebrow) {
 	font-size: 12px;
 	line-height: 1.9;
-	color: #756962;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .dialog-info .text-link {
 	font-size: 11px;
@@ -608,6 +648,7 @@ html:has(.work-dialog[open]) {
 	align-items: center;
 	margin-top: 40px;
 	font-size: 11px;
+	font-family: var(--font-body);
 }
 .dialog-controls button {
 	border: 1px solid var(--line);
@@ -672,9 +713,10 @@ html:has(.work-dialog[open]) {
 	}
 	.menu-toggle {
 		display: block;
-		color: var(--wine);
+		color: var(--soil);
 		font-size: 12px;
 		padding: 12px 0 12px 20px;
+		font-family: var(--font-body);
 	}
 	.navigation {
 		display: none;
@@ -685,7 +727,7 @@ html:has(.work-dialog[open]) {
 		background: var(--background);
 		border-bottom: 1px solid var(--line);
 		padding: 25px 6%;
-		box-shadow: 0 12px 20px #2c24230a;
+		box-shadow: 0 12px 20px #503a3a0a;
 	}
 	.navigation.is-open {
 		display: flex;
@@ -924,12 +966,12 @@ html:has(.work-dialog[open]) {
 }
 
 .lola-site .page-title {
-	font-family: var(--serif);
+	font-family: var(--font-title);
 	font-size: clamp(42px, 4.4vw, 72px);
 	line-height: 1.12;
 	letter-spacing: -2px;
 	font-weight: 400;
-	color: var(--wine);
+	color: var(--soil);
 	margin-top: 20px;
 }
 .navigation a[aria-current="page"] {
@@ -959,9 +1001,10 @@ html:has(.work-dialog[open]) {
 .booking-intro > p:not(.eyebrow):not(.booking-photo-credit) {
 	font-size: 13px;
 	line-height: 1.9;
-	color: #756962;
+	color: var(--plum);
 	max-width: 370px;
 	margin-top: 24px;
+	font-family: var(--font-body);
 }
 .booking-photo {
 	position: relative;
@@ -976,7 +1019,8 @@ html:has(.work-dialog[open]) {
 	font-size: 8px;
 	letter-spacing: 1px;
 	margin-top: 12px;
-	color: #756962;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .booking-intro > .text-link {
 	margin-top: 15px;
@@ -991,7 +1035,8 @@ html:has(.work-dialog[open]) {
 .booking-note {
 	font-size: 11px;
 	line-height: 1.8;
-	color: #756962;
+	color: var(--plum);
+	font-family: var(--font-body);
 }
 .booking-form {
 	margin-top: 28px;
@@ -1009,13 +1054,14 @@ html:has(.work-dialog[open]) {
 	gap: 10px;
 	font-size: 11px;
 	font-weight: 500;
+	font-family: var(--font-body);
 }
 .booking-form input:not([type="checkbox"]),
 .booking-form select,
 .booking-form textarea {
 	width: 100%;
 	min-width: 0;
-	border: 1px solid #c9bfb4;
+	border: 1px solid var(--line);
 	background: transparent;
 	border-radius: 0;
 	padding: 13px 12px;
@@ -1030,18 +1076,18 @@ html:has(.work-dialog[open]) {
 }
 .booking-form input::placeholder,
 .booking-form textarea::placeholder {
-	color: #82746b;
+	color: var(--plum);
 }
 .booking-form input:focus,
 .booking-form select:focus,
 .booking-form textarea:focus {
-	outline: 1px solid var(--wine);
+	outline: 1px solid var(--evergreen);
 	outline-offset: 0;
-	border-color: var(--wine);
+	border-color: var(--evergreen);
 }
 .field-hint {
 	font-size: 9px;
-	color: #756962;
+	color: var(--plum);
 	font-weight: 400;
 }
 .booking-form .consent-label {
@@ -1056,7 +1102,7 @@ html:has(.work-dialog[open]) {
 	height: 16px;
 	flex-shrink: 0;
 	margin-top: 3px;
-	accent-color: var(--wine);
+	accent-color: var(--evergreen);
 }
 .form-honeypot {
 	position: absolute;
@@ -1066,29 +1112,32 @@ html:has(.work-dialog[open]) {
 	clip-path: inset(50%);
 }
 .booking-submit {
-	background: var(--wine);
-	color: var(--background);
+	background: var(--evergreen);
+	color: var(--ivory);
 	padding: 17px 22px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	font-size: 12px;
-	border: 1px solid var(--wine);
+	border: 1px solid var(--evergreen);
+	font-family: var(--font-body);
 }
 .booking-submit:hover {
-	background: #6c1e34;
+	background: var(--sage);
+	color: var(--soil);
 }
 .booking-submit:disabled {
 	cursor: wait;
 	opacity: 0.65;
 }
 .form-error {
-	border-left: 2px solid var(--wine);
+	border-left: 2px solid var(--cantelope);
 	padding: 10px 15px;
-	color: var(--wine);
-	background: #eee2e0;
+	color: var(--soil);
+	background: #fdf0e0;
 	font-size: 12px;
 	line-height: 1.8;
+	font-family: var(--font-body);
 }
 .booking-success {
 	border-block: 1px solid var(--line);
@@ -1097,21 +1146,22 @@ html:has(.work-dialog[open]) {
 }
 .success-mark {
 	font-size: 50px;
-	color: var(--wine);
+	color: var(--sage);
 }
 .booking-success h3 {
-	font: 36px / 1.15 var(--serif);
-	color: var(--wine);
+	font: 36px / 1.15 var(--font-title);
+	color: var(--soil);
 	margin: 22px 0;
 }
 .booking-success p {
 	font-size: 13px;
 	line-height: 1.9;
-	color: #756962;
+	color: var(--plum);
 	margin-bottom: 16px;
+	font-family: var(--font-body);
 }
 .booking-success .booking-reference {
-	color: var(--wine);
+	color: var(--evergreen);
 	font-size: 11px;
 	letter-spacing: 1px;
 }
