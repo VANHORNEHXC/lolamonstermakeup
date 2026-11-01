@@ -1,40 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getPublicContent, type TextKey } from "@/lib/site-data";
 export const metadata: Metadata = { title: "Servicios | Lola Monster Makeup" };
-const services = [
+const services: { name: string; detailKey: TextKey; note: string }[] = [
 	{
 		name: "Editorial",
-		detail:
-			"Una idea que se convierte en imagen. Maquillaje y peinado para editoriales, producciones de moda y proyectos creativos.",
+		detailKey: "service_editorial",
 		note: "MODA · CAMPAÑAS · PRODUCCIONES",
 	},
 	{
 		name: "Social glam",
-		detail:
-			"Un look que se siente tuyo. Maquillaje para celebrar, salir de lo cotidiano y acompañarte en tus ocasiones especiales.",
+		detailKey: "service_social",
 		note: "EVENTOS · CELEBRACIONES",
 	},
 	{
 		name: "Novias",
-		detail:
-			"Tu esencia, presente en cada detalle. Conversemos sobre el maquillaje y peinado que imaginas para ese día.",
+		detailKey: "service_novias",
 		note: "BRIDAL BEAUTY",
 	},
 	{
 		name: "Peinado",
-		detail:
-			"Textura, forma y movimiento para completar la historia. Peinados para proyectos editoriales y ocasiones especiales.",
+		detailKey: "service_peinado",
 		note: "HAIR STYLING",
 	},
 	{
 		name: "Clases",
-		detail:
-			"Un espacio para explorar el maquillaje y descubrir nuevas posibilidades. Escríbeme para conocer las clases disponibles.",
+		detailKey: "service_clases",
 		note: "EXPLORA · APRENDE · CREA",
 	},
 ];
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+	const content = await getPublicContent();
 	return (
 		<main id="contenido">
 			<section
@@ -70,7 +67,7 @@ export default function ServicesPage() {
 								</summary>
 								<div className="service-content">
 									<p className="eyebrow">{service.note}</p>
-									<p>{service.detail}</p>
+									<p>{content[service.detailKey]}</p>
 									<Link href="/booking">Consultar disponibilidad ↗</Link>
 								</div>
 							</details>

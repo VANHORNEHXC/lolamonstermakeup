@@ -1,6 +1,6 @@
 # Lola Monster Makeup
 
-Portafolio de Paola Palacio Romo en Next.js 16, con solicitudes de servicio guardadas en Neon Postgres. El sitio es público y no tiene cuentas ni autenticación.
+Portafolio de Paola Palacio Romo en Next.js 16, con solicitudes de servicio guardadas en Neon Postgres. El sitio público no tiene cuentas para clientas; `/admin` es un panel privado para gestionar el estudio.
 
 ## Páginas
 
@@ -9,6 +9,7 @@ Portafolio de Paola Palacio Romo en Next.js 16, con solicitudes de servicio guar
 - `/servicios`: editorial, social glam, novias, peinado y clases.
 - `/sobre-lola`: presentación de Paola.
 - `/booking`: solicitud de disponibilidad y cotización.
+- `/admin`: resumen, solicitudes, historial, clientas, analíticas, editor web y ajustes.
 
 Las imágenes y sus fuentes están documentadas en `public/portfolio/README.md`. Las fotografías y el video se guardan en el bucket privado de Neon `lolamonstermuamedia`.
 
@@ -18,10 +19,18 @@ La identidad visual usa Silk Flower para títulos y Playfair Display para texto,
 
 1. Ejecuta `npm ci`.
 2. Crea `.env` con las variables de `.env.example`.
-3. Ejecuta `npm run db:setup` para crear la tabla e índices de solicitudes. La migración es idempotente y no modifica otras tablas.
+3. Ejecuta `npm run db:setup` para crear las tablas de solicitudes y administración. Las migraciones son idempotentes.
 4. Ejecuta `npm run dev` y abre `http://localhost:3000`.
 
 Configura `DATABASE_URL_POOLED` o `DATABASE_URL` en el despliegue. La conexión se utiliza únicamente en el servidor; el archivo `.env` está ignorado por Git. Las antiguas variables `NEON_AUTH_*` ya no se utilizan y no son necesarias.
+
+## Panel de administración
+
+Ejecuta `npm run admin:bootstrap` una sola vez después de `db:setup`. Crea el usuario `admin` con una clave aleatoria en Neon y guarda la clave temporal en `.admin-access` (archivo local ignorado por Git, permisos de lectura solo para el propietario). Abre `/admin/login` y cambia la clave desde **Ajustes**. Las sesiones duran siete días, usan cookie HttpOnly y se invalidan todas al cambiar la clave. El login limita intentos fallidos.
+
+El panel permite seguir cada solicitud, registrar cotización e ingreso en COP, cambiar estado, añadir notas internas, archivar y restaurar. **Historial** muestra cambios, cerradas y archivadas. **Clientas** crea fichas automáticamente al recibir un booking y permite añadir o editar perfiles, etiquetas y notas. **Analíticas** muestra solicitudes mensuales, conversión, servicios, cotizaciones e ingresos registrados; los montos se introducen manualmente y no representan pagos verificados por una pasarela.
+
+**Editor web** cambia textos de portada, Sobre Lola y servicios, y reemplaza imágenes o video desde el bucket privado. La subida por el panel acepta WebP, JPG, PNG, AVIF o MP4 de hasta 4 MB; este límite mantiene cada solicitud bajo el [máximo de 4,5 MB de Vercel Functions](https://vercel.com/docs/functions/limitations). **Ajustes** cambia la clave y el texto de la 404. La depuración elimina, como máximo, 100 solicitudes archivadas hace más de 90 días por operación y exige escribir `ELIMINAR`.
 
 ## Media en Neon
 
@@ -55,4 +64,4 @@ No existe una ruta pública para leer solicitudes ni se envían correos automát
 - `npm run build`: compilación de producción.
 - `GET /api/health`: ejecuta `SELECT 1` y devuelve `{"database":"ok"}` cuando conecta.
 
-Para comprobar el guardado completo, inicia `npm run start -- --hostname 127.0.0.1 --port 3100` tras compilar y ejecuta `node --env-file=.env tests/booking.integration.mjs`. La prueba envía el mismo encabezado `Origin` que un navegador, verifica persistencia, reintentos y límites, y elimina exclusivamente sus propios registros sintéticos.
+Para comprobar el guardado completo, inicia `npm run start -- --hostname 127.0.0.1 --port 3100` tras compilar y ejecuta `node --env-file=.env tests/booking.integration.mjs` y `node --env-file=.env tests/admin.integration.mjs`. Las pruebas usan registros sintéticos y los eliminan al terminar; la segunda requiere `.admin-access`.

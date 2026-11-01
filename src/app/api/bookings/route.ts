@@ -68,6 +68,11 @@ export async function POST(request: Request) {
           OR EXISTS (SELECT 1 FROM booking_requests WHERE id = ${booking.id}::uuid)
         ON CONFLICT (id) DO UPDATE SET id = EXCLUDED.id
         RETURNING id`,
+			sql`INSERT INTO clients (email, name, phone)
+			SELECT lower(email), name, phone FROM booking_requests WHERE id = ${booking.id}::uuid
+			ON CONFLICT (email) DO UPDATE SET
+				phone = COALESCE(NULLIF(clients.phone, ''), EXCLUDED.phone),
+				updated_at = now()`,
 		]);
 		if (!rows.length)
 			return Response.json(

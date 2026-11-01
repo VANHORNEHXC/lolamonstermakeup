@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Gallery } from "../portfolio";
+import { Gallery } from "../../portfolio";
+import { getPublicMedia } from "@/lib/site-data";
 export const metadata: Metadata = { title: "Portafolio | Lola Monster Makeup" };
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+	const media = await getPublicMedia();
+	const portfolioMedia = Object.fromEntries(
+		Object.entries(media)
+			.filter(([slot]) => slot.startsWith("portfolio_"))
+			.map(([slot, url]) => [slot.slice("portfolio_".length), url]),
+	);
 	return (
 		<main id="contenido" className="portfolio-section section-shell">
 			<div className="section-heading">
@@ -18,7 +25,7 @@ export default function PortfolioPage() {
 					Una mirada al universo Lola.
 				</p>
 			</div>
-			<Gallery />
+			<Gallery media={portfolioMedia} />
 			<div className="portfolio-end">
 				<p>¿Tienes una idea en mente?</p>
 				<Link className="text-link" href="/booking">

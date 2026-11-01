@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Link from "next/link";
-import { SiteHeader } from "./portfolio";
 import "./globals.css";
 
 const silkFlower = localFont({
@@ -34,36 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 			lang="es"
 			className={`${silkFlower.variable} ${playfair.variable} h-full antialiased`}
 		>
-			<body className="min-h-full flex flex-col">
-				<div className="lola-site">
-					<a className="skip-link" href="#contenido">
-						Saltar al contenido
-					</a>
-					<SiteHeader />
-					{children}
-					<footer className="site-footer">
-						<Link
-							className="wordmark"
-							href="/"
-							aria-label="Lola Monster Makeup, inicio"
-						>
-							lola<span>MONSTER MAKEUP</span>
-						</Link>
-						<p>Maquillaje con identidad.</p>
-						<div>
-							<a
-								href="https://www.instagram.com/lolamonstermakeup/"
-								target="_blank"
-								rel="noreferrer"
-							>
-								Instagram ↗
-							</a>
-							<Link href="/booking">Booking</Link>
-							<span>© Lola Monster Makeup</span>
-						</div>
-					</footer>
-				</div>
-			</body>
+			<body className="min-h-full flex flex-col">{children}</body>
 		</html>
 	);
 }

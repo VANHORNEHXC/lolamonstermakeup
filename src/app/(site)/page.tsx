@@ -1,24 +1,32 @@
 import Link from "next/link";
-import { HeroVideo } from "./hero-video";
-import { Gallery } from "./portfolio";
-export default function Home() {
+import { HeroVideo } from "../hero-video";
+import { Gallery } from "../portfolio";
+import { getPublicContent, getPublicMedia } from "@/lib/site-data";
+export default async function Home() {
+	const [content, media] = await Promise.all([
+		getPublicContent(),
+		getPublicMedia(),
+	]);
+	const portfolioMedia = Object.fromEntries(
+		Object.entries(media)
+			.filter(([slot]) => slot.startsWith("portfolio_"))
+			.map(([slot, url]) => [slot.slice("portfolio_".length), url]),
+	);
 	return (
 		<main id="contenido">
 			<section className="hero hero-with-video" aria-labelledby="hero-title">
-				<HeroVideo />
+				<HeroVideo video={media.hero_video} poster={media.hero_poster} />
 				<div className="hero-copy">
-					<p className="eyebrow">
-						PAOLA PALACIO ROMO <span>—</span> MAKEUP & HAIR ARTIST
-					</p>
+					<p className="eyebrow">{content.hero_eyebrow}</p>
 					<h1 id="hero-title">
-						Tu esencia.
+						{content.hero_title_1}
 						<br />
-						<em>Sin límites.</em>
+						<em>{content.hero_title_2}</em>
 					</h1>
 					<p className="hero-description">
-						Maquillaje que cuenta una historia.
+						{content.hero_description_1}
 						<br />
-						La tuya, con un toque de Lola.
+						{content.hero_description_2}
 					</p>
 					<Link className="text-link" href="/portafolio">
 						Explora mi trabajo <span aria-hidden="true">↗</span>
@@ -49,7 +57,7 @@ export default function Home() {
 						Ver todo el portafolio <span aria-hidden="true">↗</span>
 					</Link>
 				</div>
-				<Gallery preview />
+				<Gallery preview media={portfolioMedia} />
 			</section>
 		</main>
 	);

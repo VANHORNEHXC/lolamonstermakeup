@@ -76,10 +76,13 @@ try {
 	const [saved] =
 		await sql`SELECT count(*)::int AS count FROM booking_requests WHERE email = ${email}`;
 	assert.equal(saved.count, 3, "No duplicate records");
+	const [client] = await sql`SELECT count(*)::int AS count FROM clients WHERE email = ${email}`;
+	assert.equal(client.count, 1, "Client profile created once");
 	console.log(
 		"PASS: pages, removed auth routes, input validation, database persistence, rate limit and idempotency.",
 	);
 } finally {
 	await sql`DELETE FROM booking_requests WHERE id = ANY(${ids}::uuid[]) AND email = ${email}`;
+	await sql`DELETE FROM clients WHERE email = ${email}`;
 	console.log("Synthetic test requests removed.");
 }

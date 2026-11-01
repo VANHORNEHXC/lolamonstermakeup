@@ -4,6 +4,7 @@ import {
 	S3Client,
 } from "@aws-sdk/client-s3";
 import media from "@/lib/media-manifest.json";
+import { getSql } from "@/lib/db";
 
 const bucket = "lolamonstermuamedia";
 const localPathByKey = new Map(
@@ -50,10 +51,14 @@ async function serve(
 	const { path } = await context.params;
 	const key = path.join("/");
 	const localPath = localPathByKey.get(key);
-	if (!localPath) return new Response("Not Found", { status: 404 });
+	if (!localPath) {
+		const sql = getSql();
+		const rows = await sql`SELECT slot FROM site_media WHERE object_key = ${key} LIMIT 1`;
+		if (!rows.length) return new Response("Not Found", { status: 404 });
+	}
 
 	const s3 = client();
-	if (!s3) return fallback(request, localPath);
+	if (!s3) return localPath ? fallback(request, localPath) : new Response("Media unavailable", { status: 503 });
 
 	const range = request.headers.get("range");
 	if (range && !/^bytes=(?:\d+-\d*|-\d+)$/.test(range)) {
@@ -88,7 +93,7 @@ async function serve(
 		});
 	} catch (error) {
 		console.error("Neon media unavailable:", error);
-		return fallback(request, localPath);
+		return localPath ? fallback(request, localPath) : new Response("Media unavailable", { status: 503 });
 	}
 }
 

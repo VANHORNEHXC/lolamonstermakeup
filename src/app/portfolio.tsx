@@ -139,7 +139,7 @@ export function SiteHeader() {
 	);
 }
 
-export function Gallery({ preview = false }: { preview?: boolean }) {
+export function Gallery({ preview = false, media = {} }: { preview?: boolean; media?: Record<string, string> }) {
 	const [filter, setFilter] = useState("Todo");
 	const [active, setActive] = useState(0);
 	const dialog = useRef<HTMLDialogElement>(null);
@@ -188,7 +188,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
 					>
 						<div className="work-image">
 							<Image
-								src={portfolioImage(work.image)}
+								src={media[work.image] ?? portfolioImage(work.image)}
 								alt={work.alt}
 								fill
 								sizes="(max-width: 700px) 50vw, (max-width: 1100px) 45vw, 24vw"
@@ -223,7 +223,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
 				</button>
 				<div className="dialog-photo">
 					<Image
-						src={portfolioImage(selected.image)}
+						src={media[selected.image] ?? portfolioImage(selected.image)}
 						alt={selected.alt}
 						fill
 						sizes="(max-width: 700px) 90vw, 65vw"

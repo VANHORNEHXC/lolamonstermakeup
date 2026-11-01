@@ -64,6 +64,17 @@ body {
 	outline: 2px solid var(--evergreen);
 	outline-offset: 6px;
 }
+.not-found-page {
+	min-height: 80svh;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 24px;
+	padding: 8vw;
+}
+.not-found-page h1 { max-width: 850px; font: 400 clamp(48px, 8vw, 100px)/1.05 var(--font-title); }
+.not-found-page > p:not(.eyebrow) { max-width: 520px; color: var(--text-muted); line-height: 1.7; }
 .skip-link {
 	position: fixed;
 	top: -100px;

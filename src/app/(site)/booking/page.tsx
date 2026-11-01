@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { mediaUrl } from "@/lib/media";
+import { getPublicMedia } from "@/lib/site-data";
 import { BookingForm } from "./booking-form";
 export const metadata: Metadata = {
 	title: "Booking | Lola Monster Makeup",
 	description:
 		"Cuéntame tu idea y solicita disponibilidad para maquillaje y peinado editorial, social glam o novias en Bogotá.",
 };
-export default function BookingPage() {
+export default async function BookingPage() {
+	const media = await getPublicMedia();
 	return (
 		<main id="contenido" className="booking-page section-shell">
 			<div className="booking-intro">
@@ -23,7 +25,7 @@ export default function BookingPage() {
 				</p>
 				<div className="booking-photo">
 					<Image
-						src={mediaUrl("portfolio/heavenly.webp")}
+						src={media.booking_photo ?? mediaUrl("portfolio/heavenly.webp")}
 						alt="Maquillaje luminoso de la editorial Heavenly"
 						fill
 						loading="eager"
@@ -45,9 +47,7 @@ export default function BookingPage() {
 				<h2>
 					Hablemos de <em>tu look.</em>
 				</h2>
-				<p className="booking-note">
-					Los campos con * son obligatorios.
-				</p>
+				<p className="booking-note">Los campos con * son obligatorios.</p>
 				<BookingForm />
 			</div>
 		</main>

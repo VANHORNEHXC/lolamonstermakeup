@@ -1,11 +1,9 @@
-import { mediaUrl } from "@/lib/media";
-
-export function HeroVideo() {
+export function HeroVideo({ video, poster }: { video: string; poster: string }) {
 	return (
 		<video
 			className="hero-video"
-			src={mediaUrl("video/lola-background.mp4")}
-			poster={mediaUrl("video/lola-background.webp")}
+			src={video}
+			poster={poster}
 			width={720}
 			height={1280}
 			autoPlay

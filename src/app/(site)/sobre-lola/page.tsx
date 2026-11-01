@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { mediaUrl } from "@/lib/media";
+import { getPublicContent, getPublicMedia } from "@/lib/site-data";
 export const metadata: Metadata = { title: "Sobre Lola | Lola Monster Makeup" };
-export default function AboutPage() {
+export default async function AboutPage() {
+	const [content, media] = await Promise.all([
+		getPublicContent(),
+		getPublicMedia(),
+	]);
 	return (
 		<main id="contenido">
 			<section
@@ -14,7 +19,7 @@ export default function AboutPage() {
 				<figure className="about-figure">
 					<div className="about-image">
 						<Image
-							src={mediaUrl("portfolio/alien-dream.webp")}
+							src={media.about_photo ?? mediaUrl("portfolio/alien-dream.webp")}
 							alt="Paola Palacio Romo en una producción de fantasía, con maquillaje y peinado propios, en un paisaje de tonos ocre"
 							fill
 							loading="eager"
@@ -32,19 +37,9 @@ export default function AboutPage() {
 						<br />
 						<em>También soy Lola.</em>
 					</h1>
-					<p className="about-lead">
-						El maquillaje es mi forma de explorar todo lo que podemos ser.
-					</p>
-					<p>
-						Soy Paola Palacio Romo, la artista detrás de Lola Monster Makeup.
-						Desde Bogotá, creo propuestas de maquillaje y peinado editorial y
-						social glam, donde el color, la textura y la personalidad se
-						encuentran.
-					</p>
-					<p>
-						Me inspira la belleza que se atreve a ser diferente. La que expresa,
-						transforma y se siente propia.
-					</p>
+					<p className="about-lead">{content.about_lead}</p>
+					<p>{content.about_paragraph_1}</p>
+					<p>{content.about_paragraph_2}</p>
 					<Link className="text-link" href="/booking">
 						Cuéntame tu idea ↗
 					</Link>
