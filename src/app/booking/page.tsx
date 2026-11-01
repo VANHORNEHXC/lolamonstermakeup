@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { mediaUrl } from "@/lib/media";
 import { BookingForm } from "./booking-form";
 export const metadata: Metadata = {
 	title: "Booking | Lola Monster Makeup",
@@ -22,7 +23,7 @@ export default function BookingPage() {
 				</p>
 				<div className="booking-photo">
 					<Image
-						src="/portfolio/heavenly.webp"
+						src={mediaUrl("portfolio/heavenly.webp")}
 						alt="Maquillaje luminoso de la editorial Heavenly"
 						fill
 						loading="eager"

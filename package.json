@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "biome lint src next.config.ts",
     "db:setup": "node --env-file=.env scripts/setup-db.mjs",
+    "media:upload": "node --env-file=.env scripts/upload-media.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1161.0",
     "@neondatabase/serverless": "^1.2.0",
     "next": "16.4.3",
     "react": "19.3.0",

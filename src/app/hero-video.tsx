@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { mediaUrl } from "@/lib/media";
 
 export function HeroVideo() {
 	const videoRef = useRef<HTMLVideoElement>(null);
@@ -30,8 +31,8 @@ export function HeroVideo() {
 			<video
 				ref={videoRef}
 				className="hero-video"
-				src="/video/lola-background.mp4"
-				poster="/video/lola-background.webp"
+				src={mediaUrl("video/lola-background.mp4")}
+				poster={mediaUrl("video/lola-background.webp")}
 				width={720}
 				height={1280}
 				muted

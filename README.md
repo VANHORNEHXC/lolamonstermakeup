@@ -10,7 +10,7 @@ Portafolio de Paola Palacio Romo en Next.js 16, con solicitudes de servicio guar
 - `/sobre-lola`: presentación de Paola.
 - `/booking`: solicitud de disponibilidad y cotización.
 
-Las imágenes y sus fuentes están documentadas en `public/portfolio/README.md`.
+Las imágenes y sus fuentes están documentadas en `public/portfolio/README.md`. Las fotografías y el video se guardan en el bucket privado de Neon `lolamonstermuamedia`.
 
 La identidad visual usa Silk Flower para títulos y Playfair Display para texto, servidas localmente mediante `next/font`. La paleta pastel se define en `src/app/globals.css`; los colores `text-muted` y `text-accent` son variantes oscuras para mantener legibilidad sobre crema y avena.
 
@@ -22,6 +22,14 @@ La identidad visual usa Silk Flower para títulos y Playfair Display para texto,
 4. Ejecuta `npm run dev` y abre `http://localhost:3000`.
 
 Configura `DATABASE_URL_POOLED` o `DATABASE_URL` en el despliegue. La conexión se utiliza únicamente en el servidor; el archivo `.env` está ignorado por Git. Las antiguas variables `NEON_AUTH_*` ya no se utilizan y no son necesarias.
+
+## Media en Neon
+
+1. Copia a `.env` las cuatro variables S3 de Neon que aparecen en `.env.example`. Usa el endpoint y las credenciales de la rama que contiene el bucket `lolamonstermuamedia`.
+2. Ejecuta `npm run media:upload`. Sube las nueve fotografías, el video y su imagen de espera, comprueba tamaño y tipo, y actualiza `src/lib/media-manifest.json` con nombres que incluyen un hash del contenido.
+3. Añade las mismas cuatro variables `AWS_*` a los entornos de Production y Preview en Vercel y vuelve a desplegar. Las credenciales nunca se envían al navegador.
+
+El bucket permanece privado. La ruta `/media/` solo acepta los archivos incluidos en el manifiesto; entrega imágenes y video desde Neon y permite peticiones parciales del video. Las respuestas usan caché de navegador y CDN para los nombres con hash. Las copias locales siguen en `public/` como respaldo: si faltan las variables S3 o falla Neon, la ruta redirige a la copia local sin almacenar esa redirección en caché. En una respuesta de `/media/`, `X-Media-Source: neon` confirma que los bytes llegan de Neon; `local-fallback` indica que se está usando el respaldo.
 
 `vercel.json` elimina la variable heredada `npm_config_cache_dir` antes de instalar y compilar: npm ya no reconoce esa opción. Esto corrige la causa de la advertencia sin ocultar mensajes ni desactivar comprobaciones. Los comandos usan las [opciones de configuración de Vercel](https://vercel.com/docs/project-configuration/vercel-json).
 

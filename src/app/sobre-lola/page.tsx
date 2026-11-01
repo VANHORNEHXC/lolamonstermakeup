@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { mediaUrl } from "@/lib/media";
 export const metadata: Metadata = { title: "Sobre Lola | Lola Monster Makeup" };
 export default function AboutPage() {
 	return (
@@ -13,7 +14,7 @@ export default function AboutPage() {
 				<figure className="about-figure">
 					<div className="about-image">
 						<Image
-							src="/portfolio/alien-dream.webp"
+							src={mediaUrl("portfolio/alien-dream.webp")}
 							alt="Paola Palacio Romo en una producción de fantasía, con maquillaje y peinado propios, en un paisaje de tonos ocre"
 							fill
 							loading="eager"

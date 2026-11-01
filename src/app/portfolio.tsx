@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
+import { portfolioImage } from "@/lib/media";
 
 const works = [
 	{
@@ -187,7 +188,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
 					>
 						<div className="work-image">
 							<Image
-								src={`/portfolio/${work.image}.webp`}
+								src={portfolioImage(work.image)}
 								alt={work.alt}
 								fill
 								sizes="(max-width: 700px) 50vw, (max-width: 1100px) 45vw, 24vw"
@@ -222,7 +223,7 @@ export function Gallery({ preview = false }: { preview?: boolean }) {
 				</button>
 				<div className="dialog-photo">
 					<Image
-						src={`/portfolio/${selected.image}.webp`}
+						src={portfolioImage(selected.image)}
 						alt={selected.alt}
 						fill
 						sizes="(max-width: 700px) 90vw, 65vw"
