@@ -28,7 +28,11 @@ const payload = {
 const send = (data, headers = {}) =>
 	fetch(`${base}/api/bookings`, {
 		method: "POST",
-		headers: { "Content-Type": "application/json", ...headers },
+		headers: {
+			"Content-Type": "application/json",
+			Origin: new URL(base).origin,
+			...headers,
+		},
 		body: JSON.stringify(data),
 	});
 try {

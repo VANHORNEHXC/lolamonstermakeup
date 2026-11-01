@@ -3,7 +3,10 @@ import { getSql } from "@/lib/db";
 
 export async function POST(request: Request) {
 	const origin = request.headers.get("origin");
-	if (origin && origin !== new URL(request.url).origin)
+	// Next can normalize request.url to localhost behind its HTTP server.
+	// The browser's Host header preserves the public host (including its port).
+	const host = request.headers.get("host") ?? new URL(request.url).host;
+	if (origin && origin !== `https://${host}` && origin !== `http://${host}`)
 		return Response.json(
 			{ error: "Origen de solicitud no permitido." },
 			{ status: 403 },

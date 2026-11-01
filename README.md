@@ -12,6 +12,8 @@ Portafolio de Paola Palacio Romo en Next.js 16, con solicitudes de servicio guar
 
 Las imágenes y sus fuentes están documentadas en `public/portfolio/README.md`.
 
+La identidad visual usa Silk Flower para títulos y Playfair Display para texto, servidas localmente mediante `next/font`. La paleta pastel se define en `src/app/globals.css`; los colores `text-muted` y `text-accent` son variantes oscuras para mantener legibilidad sobre crema y avena.
+
 ## Configuración
 
 1. Ejecuta `npm ci`.
@@ -42,3 +44,5 @@ No existe una ruta pública para leer solicitudes ni se envían correos automát
 - `npm test`: validación de solicitudes, fechas y campos.
 - `npm run build`: compilación de producción.
 - `GET /api/health`: ejecuta `SELECT 1` y devuelve `{"database":"ok"}` cuando conecta.
+
+Para comprobar el guardado completo, inicia `npm run start -- --hostname 127.0.0.1 --port 3100` tras compilar y ejecuta `node --env-file=.env tests/booking.integration.mjs`. La prueba envía el mismo encabezado `Origin` que un navegador, verifica persistencia, reintentos y límites, y elimina exclusivamente sus propios registros sintéticos.

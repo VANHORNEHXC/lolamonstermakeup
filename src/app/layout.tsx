@@ -7,12 +7,18 @@ import "./globals.css";
 const silkFlower = localFont({
 	src: "../../public/silk-flower-font/silk-flower.otf",
 	variable: "--font-silk-flower",
+	weight: "400",
+	style: "normal",
+	fallback: ["Georgia", "serif"],
 	display: "swap",
 });
 
 const playfair = localFont({
 	src: "../../public/Metamorphous,Playfair_Display/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf",
 	variable: "--font-playfair",
+	weight: "400 900",
+	style: "normal",
+	fallback: ["Georgia", "serif"],
 	display: "swap",
 });
 
