@@ -152,18 +152,19 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	min-height: clamp(620px, calc(100svh - 112px), 860px);
+	min-height: clamp(700px, calc(100svh - 112px), 900px);
 	max-width: none;
 	padding: 64px 6% 88px;
 	background: var(--soil);
 }
 .hero-video {
 	position: absolute;
-	inset: 0;
-	width: 100%;
+	top: 0;
+	right: 6%;
+	width: min(48%, 500px);
 	height: 100%;
-	object-fit: cover;
-	object-position: center 62%;
+	object-fit: contain;
+	object-position: center;
 	pointer-events: none;
 }
 .hero-with-video::before {
@@ -173,16 +174,17 @@ body {
 	z-index: 1;
 	background: linear-gradient(
 		90deg,
-		#241c20e6 0%,
-		#241c20b8 42%,
-		#241c2033 100%
+		#241c20 0%,
+		#241c20f2 34%,
+		#241c2080 51%,
+		transparent 65%
 	);
 	pointer-events: none;
 }
 .hero-with-video .hero-copy {
 	position: relative;
 	z-index: 2;
-	width: min(100%, 750px);
+	width: min(52%, 750px);
 	padding: 0;
 }
 .hero-with-video :is(h1, .eyebrow, .hero-description, .location, .text-link) {
@@ -190,24 +192,6 @@ body {
 }
 .hero-with-video :focus-visible {
 	outline-color: var(--ivory);
-}
-.video-toggle {
-	position: absolute;
-	z-index: 3;
-	right: 6%;
-	top: 28px;
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
-	border: 1px solid #fdf8f080;
-	padding: 11px 15px;
-	background: #241c20cc;
-	color: var(--background);
-	font-size: 12px;
-	line-height: 1.5;
-}
-.video-toggle:hover {
-	background: var(--soil);
 }
 @media (max-width: 700px) {
 	.hero.hero-with-video {
@@ -218,16 +202,20 @@ body {
 	.hero-with-video::before {
 		background: linear-gradient(
 			180deg,
-			#241c2033 0%,
-			#241c20b8 36%,
-			#241c20f2 100%
+			transparent 0%,
+			#241c201a 34%,
+			#241c2073 72%,
+			#241c20ad 100%
 		);
 	}
 	.hero-video {
+		inset: 0;
+		width: 100%;
+		object-fit: cover;
 		object-position: center;
 	}
-	.video-toggle {
-		top: 24px;
+	.hero-with-video .hero-copy {
+		width: 100%;
 	}
 }
 .eyebrow {
