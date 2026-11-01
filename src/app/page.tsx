@@ -1,10 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
+import { HeroVideo } from "./hero-video";
 import { Gallery } from "./portfolio";
 export default function Home() {
 	return (
 		<main id="contenido">
-			<section className="hero" aria-labelledby="hero-title">
+			<section className="hero hero-with-video" aria-labelledby="hero-title">
+				<HeroVideo />
 				<div className="hero-copy">
 					<p className="eyebrow">
 						PAOLA PALACIO ROMO <span>—</span> MAKEUP & HAIR ARTIST
@@ -23,14 +24,6 @@ export default function Home() {
 						Explora mi trabajo <span aria-hidden="true">↗</span>
 					</Link>
 					<div className="hero-bottom">
-						<div className="hero-small-image">
-							<Image
-								src="/portfolio/the-shape.webp"
-								alt="Retrato editorial en blanco y negro, con ondas que enmarcan el rostro"
-								fill
-								sizes="(max-width: 700px) 30vw, 170px"
-							/>
-						</div>
 						<div>
 							<p className="eyebrow">
 								EDITORIAL. GLAM.
@@ -40,22 +33,6 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<figure className="hero-figure">
-					<div className="hero-image">
-						<Image
-							src="/portfolio/bohemia.webp"
-							alt="Maquillaje de tonos cálidos y labios ciruela para la editorial Bohemia Nostálgica"
-							fill
-							loading="eager"
-							fetchPriority="high"
-							sizes="(max-width: 700px) 100vw, 50vw"
-						/>
-					</div>
-					<figcaption>
-						<span>BOHEMIA NOSTÁLGICA</span>
-						<span>MAKEUP BY LOLA ↗</span>
-					</figcaption>
-				</figure>
 			</section>
 			<section
 				className="home-selection section-shell"
