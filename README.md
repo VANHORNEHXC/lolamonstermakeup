@@ -23,6 +23,8 @@ La identidad visual usa Silk Flower para títulos y Playfair Display para texto,
 
 Configura `DATABASE_URL_POOLED` o `DATABASE_URL` en el despliegue. La conexión se utiliza únicamente en el servidor; el archivo `.env` está ignorado por Git. Las antiguas variables `NEON_AUTH_*` ya no se utilizan y no son necesarias.
 
+`vercel.json` elimina la variable heredada `npm_config_cache_dir` antes de instalar y compilar: npm ya no reconoce esa opción. Esto corrige la causa de la advertencia sin ocultar mensajes ni desactivar comprobaciones. Los comandos usan las [opciones de configuración de Vercel](https://vercel.com/docs/project-configuration/vercel-json).
+
 ## Solicitudes
 
 `POST /api/bookings` valida los campos, exige consentimiento de contacto y guarda una solicitud en `booking_requests`. Aplica un límite de tres solicitudes por correo por hora, una trampa antispam y un límite de 16 KB por petición. Una transacción serializa el límite por correo. El identificador de petición evita duplicados al reintentar un envío.
